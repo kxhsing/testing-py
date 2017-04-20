@@ -10,15 +10,19 @@ app.secret_key = "SECRETSECRETSECRET"
 def is_mel(name, email):
     """Is this user Mel?
 
+    Both true:
     >>> is_mel("Mel Melitpolski", "mel@ubermelon.com")
     True
 
+    Just email true, name false:
     >>> is_mel("Random Person", "mel@ubermelon.com")
     True
 
+    Just email false, name true:
     >>> is_mel("Mel Melitpolski", "random@gmail.com")
     True
 
+    Both false:
     >>> is_mel("Random Person", "random@gmail.com")
     False
 
@@ -31,6 +35,33 @@ def most_and_least_common_type(treats):
     """Given list of treats, return most and least common treat types.
 
     Return most and least common treat types in tuple of format (most, least).
+
+
+    Main has 3, drink has 1:
+    >>> most_and_least_common_type([{'type': 'main'}, {'type': 'drink'}, {'type': 'dessert'}, {'type': 'main'}, {'type': 'dessert'}, {'type': 'main'}])
+    ('main', 'drink')
+
+    Same as previous, but mixed up
+    >>> most_and_least_common_type([{'type': 'main'}, {'type': 'dessert'}, {'type': 'main'}, {'type': 'dessert'}, {'type': 'drink'}, {'type': 'main'}])
+    ('main', 'drink')
+
+    Only one item:
+    >>> most_and_least_common_type([{'type': 'main'}])
+    ('main', 'main')
+
+    Two items:
+    >>> most_and_least_common_type([{'type': 'main'}, {'type': 'dessert'}])
+    ('dessert', 'dessert')
+
+    Tie for main and dessert with 2:
+    >>> most_and_least_common_type([{'type': 'main'}, {'type': 'dessert'}, {'type': 'dessert'}, {'type': 'main'}, {'type': 'drink'}])
+    ('dessert', 'drink')
+
+    Empty list:
+    >>> most_and_least_common_type([])
+    (None, None)
+
+
     """
 
     types = {}
