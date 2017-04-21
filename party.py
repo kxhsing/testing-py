@@ -2,6 +2,7 @@
 
 from flask import Flask, session, render_template, request, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
+from random import choice
 
 app = Flask(__name__)
 app.secret_key = "SECRETSECRETSECRET"
@@ -126,6 +127,36 @@ def get_treats():
          'description': 'Brownies',
          'who': 'Sarah'}
     ]
+
+
+def white_elephant(gifts):
+    """ Plays a white elephant game with a given dictionary of guests and gifts
+
+
+    >>> white_elephant({})
+    {}
+
+    >>> white_elephant({'Leslie': 'stuffed dog'})
+    {'Leslie': 'stuffed dog'}
+
+    >>> len({'Leslie': 'stuffed dog', 'Joel': 'crossword puzzle', 'Meggie': 'candy', 'Bonnie': 'cat food', 'Katie': 'rubiks cube', 'Anges': 'starbucks gift card', 'Henry': 'graphic t-shirt', 'Sarah': 'christmas mug'}) == len(white_elephant({'Leslie': 'stuffed dog', 'Joel': 'crossword puzzle', 'Meggie': 'candy', 'Bonnie': 'cat food', 'Katie': 'rubiks cube', 'Anges': 'starbucks gift card', 'Henry': 'graphic t-shirt', 'Sarah': 'christmas mug'}))
+    True
+
+    """
+
+
+    gift_list = [gift for gift in gifts.values()]
+
+    new_gifts = {person: None for person in gifts.keys()}
+
+    for person, gift in new_gifts.items():
+        new_gift = choice(gift_list)
+        gift_list.remove(new_gift)
+        new_gifts[person] = new_gift
+
+    return new_gifts
+
+
 
 
 @app.route("/")
